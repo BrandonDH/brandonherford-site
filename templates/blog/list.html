@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Blog — {{ site.name }}{% endblock %}
+{% block og_title %}Blog — {{ site.name }}{% endblock %}
+{% block meta_description %}Writing and ideas by {{ site.name }}.{% endblock %}
+
+{% block content %}
+<header class="page-head">
+  <h1>Blog</h1>
+  <p class="page-lead">Ideas, notes, and things I'm building.</p>
+</header>
+
+{# JSON data consumed by the Preact island (also usable by other scripts). #}
+{{ posts_json|json_script:"posts-data" }}
+{{ tags_json|json_script:"tags-data" }}
+
+<div id="blog-app" class="blog-app">
+  {# --- Progressive-enhancement fallback (shown if JS is disabled) --- #}
+  {% if tags %}
+    <div class="filter-bar">
+      <a href="{% url 'blog:list' %}" class="chip {% if not active_tag %}chip-active{% endif %}">All</a>
+      {% for tag in tags %}
+        <a href="?tag={{ tag.slug }}" class="chip {% if active_tag == tag.slug %}chip-active{% endif %}">{{ tag.name }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <ul class="post-list">
+    {% for post in posts %}
+      {% include "blog/_post_row.html" with post=post %}
+    {% empty %}
+      <li class="empty">No posts yet — check back soon.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script type="module" src="{% static 'js/blog-filter.js' %}"></script>
+{% endblock %}

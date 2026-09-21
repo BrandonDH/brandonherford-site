@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static markdown_tags %}
+
+{% block title %}Experience — {{ site.name }}{% endblock %}
+{% block og_title %}Experience — {{ site.name }}{% endblock %}
+{% block meta_description %}The professional experience and skills of {{ site.name }}.{% endblock %}
+
+{% block content %}
+<header class="page-head">
+  <h1>Experience</h1>
+  {% if site.resume %}
+    <a class="btn" href="{{ site.resume.url }}" target="_blank" rel="noopener">Download resume ↗</a>
+  {% endif %}
+</header>
+
+<div class="experience-layout">
+  <section class="timeline">
+    {% for job in experiences %}
+      <article class="timeline-item">
+        <div class="timeline-dates">
+          {{ job.start_date|date:"M Y" }} — {% if job.is_current %}Present{% else %}{{ job.end_date|date:"M Y" }}{% endif %}
+        </div>
+        <div class="timeline-body">
+          <h2 class="timeline-role">{{ job.role }}</h2>
+          <p class="timeline-company">
+            {% if job.company_url %}<a href="{{ job.company_url }}" target="_blank" rel="noopener">{{ job.company }}</a>
+            {% else %}{{ job.company }}{% endif %}
+            {% if job.location %}· {{ job.location }}{% endif %}
+          </p>
+          {% if job.description %}<div class="prose">{{ job.description|markdown }}</div>{% endif %}
+        </div>
+      </article>
+    {% empty %}
+      <p class="empty">Experience entries coming soon.</p>
+    {% endfor %}
+  </section>
+
+  {% if skills_by_category %}
+    <aside class="skills">
+      <h2>Skills</h2>
+      {% for category, items in skills_by_category %}
+        <div class="skill-group">
+          <h3>{{ category }}</h3>
+          <ul class="skill-list">
+            {% for skill in items %}<li>{{ skill.name }}</li>{% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </aside>
+  {% endif %}
+</div>
+{% endblock %}

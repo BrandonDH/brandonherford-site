@@ -1,0 +1,12 @@
+{% load static %}
+<li class="post-row">
+  <a class="post-row-link" href="{{ post.get_absolute_url }}">
+    <div class="post-row-main">
+      <h3 class="post-row-title">{{ post.title }}</h3>
+      {% if post.summary %}<p class="post-row-summary">{{ post.summary }}</p>{% endif %}
+    </div>
+    <time class="post-row-date" datetime="{{ post.published_at|date:'Y-m-d' }}">
+      {{ post.published_at|date:"M j, Y" }}
+    </time>
+  </a>
+</li>

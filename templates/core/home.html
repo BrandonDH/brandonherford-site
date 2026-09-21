@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static markdown_tags %}
+
+{% block title %}{{ site.name }} — {{ site.tagline }}{% endblock %}
+{% block og_title %}{{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1 class="hero-title">{{ site.name }}</h1>
+    {% if site.tagline %}<p class="hero-tagline">{{ site.tagline }}</p>{% endif %}
+    {% if site.bio %}<div class="prose">{{ site.bio|markdown }}</div>{% endif %}
+    <div class="hero-actions">
+      <a class="btn" href="{% url 'blog:list' %}">Read the blog</a>
+      <a class="btn btn-ghost" href="{% url 'portfolio:list' %}">See work</a>
+    </div>
+  </div>
+  <figure class="hero-canvas">
+    <div class="planes" id="greeting"></div>
+    <figcaption>An iteration of the “Flocking” script by
+      <a href="http://www.red3d.com/cwr/" target="_blank" rel="noopener">Craig Reynolds</a>.
+    </figcaption>
+  </figure>
+</section>
+
+{% if featured_projects %}
+<section class="home-section">
+  <div class="section-head">
+    <h2>Selected work</h2>
+    <a href="{% url 'portfolio:list' %}">All projects →</a>
+  </div>
+  <div class="card-grid">
+    {% for project in featured_projects %}
+      {% include "portfolio/_project_card.html" with project=project %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if recent_posts %}
+<section class="home-section">
+  <div class="section-head">
+    <h2>Latest writing</h2>
+    <a href="{% url 'blog:list' %}">All posts →</a>
+  </div>
+  <ul class="post-list">
+    {% for post in recent_posts %}
+      {% include "blog/_post_row.html" with post=post %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="{% static 'js/flocking.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load static %}
+<article class="card">
+  {% if project.image %}
+    <a href="{{ project.url|default:'#' }}" {% if project.url %}target="_blank" rel="noopener"{% endif %} class="card-media">
+      <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+    </a>
+  {% endif %}
+  <div class="card-body">
+    <h3 class="card-title">
+      {% if project.url %}<a href="{{ project.url }}" target="_blank" rel="noopener">{{ project.title }} ↗</a>
+      {% else %}{{ project.title }}{% endif %}
+    </h3>
+    {% if project.summary %}<p class="card-summary">{{ project.summary }}</p>{% endif %}
+    {% if project.tech_list %}
+      <ul class="tech-tags">
+        {% for tech in project.tech_list %}<li>{{ tech }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+    {% if project.source_url %}<a class="card-link" href="{{ project.source_url }}" target="_blank" rel="noopener">Source →</a>{% endif %}
+  </div>
+</article>

@@ -1,0 +1,15 @@
+{% load static %}
+{% comment %}Server-built share URLs — no third-party tracking scripts.{% endcomment %}
+<div class="share" data-share-url="{{ request.build_absolute_uri }}" data-share-title="{{ post.title }}">
+  <span class="share-label">Share</span>
+  <a class="share-btn" target="_blank" rel="noopener"
+     href="https://twitter.com/intent/tweet?text={{ post.title|urlencode }}&url={{ request.build_absolute_uri|urlencode }}">X</a>
+  <a class="share-btn" target="_blank" rel="noopener"
+     href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri|urlencode }}">LinkedIn</a>
+  <a class="share-btn" target="_blank" rel="noopener"
+     href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}">Facebook</a>
+  <a class="share-btn" rel="noopener"
+     href="mailto:?subject={{ post.title|urlencode }}&body={{ request.build_absolute_uri|urlencode }}">Email</a>
+  <button class="share-btn share-copy" type="button">Copy link</button>
+</div>
+<script src="{% static 'js/share.js' %}"></script>

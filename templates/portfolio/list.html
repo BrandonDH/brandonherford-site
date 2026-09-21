@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Portfolio — {{ site.name }}{% endblock %}
+{% block og_title %}Portfolio — {{ site.name }}{% endblock %}
+{% block meta_description %}Selected projects and work by {{ site.name }}.{% endblock %}
+
+{% block content %}
+<header class="page-head">
+  <h1>Portfolio</h1>
+  <p class="page-lead">Things I've designed and built.</p>
+</header>
+
+{% if projects %}
+  <div class="card-grid">
+    {% for project in projects %}
+      {% include "portfolio/_project_card.html" with project=project %}
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty">Projects coming soon.</p>
+{% endif %}
+{% endblock %}
