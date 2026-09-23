@@ -15,12 +15,6 @@
       <a class="btn btn-ghost" href="{% url 'portfolio:list' %}">See work</a>
     </div>
   </div>
-  <figure class="hero-canvas">
-    <div class="planes" id="greeting"></div>
-    <figcaption>An iteration of the “Flocking” script by
-      <a href="http://www.red3d.com/cwr/" target="_blank" rel="noopener">Craig Reynolds</a>.
-    </figcaption>
-  </figure>
 </section>
 
 {% if featured_projects %}
@@ -50,9 +44,4 @@
   </ul>
 </section>
 {% endif %}
-{% endblock %}
-
-{% block extra_scripts %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
-  <script src="{% static 'js/flocking.js' %}"></script>
 {% endblock %}
