@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
+from martor.models import MartorField
 
 
 class Tag(models.Model):
@@ -33,7 +34,7 @@ class Post(models.Model):
         blank=True,
         help_text="One or two sentences shown in the blog list and social previews.",
     )
-    body = models.TextField(help_text="Post content in Markdown. Images/embeds welcome.")
+    body = MartorField(help_text="Post content in Markdown. Use the toolbar to format and upload images inline.")
 
     hero_image = models.ImageField(upload_to="posts/", blank=True,
                                    help_text="Optional banner image shown at the top of the post.")

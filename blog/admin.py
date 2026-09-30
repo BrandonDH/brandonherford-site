@@ -1,4 +1,6 @@
 from django.contrib import admin
+from martor.models import MartorField
+from martor.widgets import AdminMartorWidget
 
 from .models import Post, Tag
 
@@ -12,6 +14,7 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
+    formfield_overrides = {MartorField: {"widget": AdminMartorWidget}}
     list_display = ("title", "status", "published_at", "updated_at")
     list_filter = ("status", "tags", "published_at")
     search_fields = ("title", "summary", "body")

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third-party
+    "martor",  # Markdown editor for the admin (toolbar, live preview, image upload)
     # Local apps (one per nav section, easy to reason about).
     "core",
     "blog",
@@ -123,6 +125,37 @@ STORAGES = {
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# --- Martor (Markdown editor) ------------------------------------------------
+# Matches the markdown extensions used by core.templatetags.markdown_tags so the
+# live preview looks like the published post.
+MARTOR_THEME = "bootstrap"
+MARTOR_ENABLE_CONFIGS = {
+    "emoji": "true",       # enable :emoji: shortcodes
+    "imgur": "true",       # show the image-upload toolbar button
+    "mention": "false",
+    "jquery": "true",      # martor bundles the jQuery it needs
+    "living": "false",     # off = preview on demand (click), not on every keystroke
+    "spellcheck": "false",
+    "hljs": "true",        # syntax highlighting in code blocks
+}
+MARTOR_TOOLBAR_BUTTONS = [
+    "bold", "italic", "horizontal", "heading", "pre-code", "blockquote",
+    "unordered-list", "ordered-list", "link", "image-link", "image-upload",
+    "emoji", "toggle-maximize", "help",
+]
+# Upload images to OUR /media/ instead of Imgur (see blog.views.martor_uploader).
+MARTOR_UPLOAD_URL = "/blog/martor/uploader/"
+MARTOR_MARKDOWN_BASE_MENTION_URL = ""
+# Server-side markdown preview extensions (mirror the display filter).
+MARTOR_MARKDOWN_EXTENSIONS = [
+    "markdown.extensions.extra",
+    "markdown.extensions.fenced_code",
+    "markdown.extensions.codehilite",
+    "markdown.extensions.nl2br",
+    "markdown.extensions.sane_lists",
+]
 
 # --- Email -------------------------------------------------------------------
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

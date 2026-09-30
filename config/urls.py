@@ -5,6 +5,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("martor/", include("martor.urls")),  # live markdown preview endpoint
     path("", include("core.urls")),
     path("blog/", include("blog.urls")),
     path("portfolio/", include("portfolio.urls")),

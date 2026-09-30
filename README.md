@@ -46,11 +46,17 @@ Then open http://127.0.0.1:8000 — and http://127.0.0.1:8000/admin to manage co
 ## Writing a post
 
 1. Go to `/admin`, log in.
-2. **Blog → Posts → Add.** Write the body in Markdown, add a hero image and
-   tags, set status to **Published**, save.
+2. **Blog → Posts → Add.** Write the body in the **Markdown editor** (django-martor):
+   a toolbar for bold/italic/headings/lists/links, an **Editor / Preview** toggle,
+   and an **image-upload button** (the cloud icon) that drops images inline. Add a
+   hero image and tags, set status to **Published**, save.
 3. It appears on `/blog` and links share cleanly to social media (Open Graph +
    Twitter Card tags are generated automatically; the hero image becomes the
    preview image).
+
+**Inline images** uploaded from the editor are saved to your own
+`media/posts/inline/YYYY/MM/` (not a third party), so they're served the same way
+as any other media. Uploads are restricted to logged-in staff.
 
 Edit your name, bio, social links, and resume PDF under **Core → Site profile**.
 
